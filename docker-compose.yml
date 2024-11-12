@@ -5,7 +5,7 @@ services:
   home:
       build: ./home
       ports:
-        - "5001:5000"
+        - "5000:5000"
       volumes:
         - ./home:/usr/src/app
       env_file:
@@ -15,12 +15,12 @@ services:
       depends_on:
         - db
 
-  admin:
-      build: ./Administrador
+  administrador:
+      build: ./administrador
       ports:
         - "5002:5000"
       volumes:
-        - ./Administrador:/usr/src/app
+        - ./administrador:/usr/src/app
       env_file:
         - ./database_postgresql/base.env
       environment:
@@ -33,7 +33,6 @@ services:
     env_file:
       - ./database_postgresql/base.env
     volumes:
-      - inicio_data:/var/lib/postgresql/data
       - ./database_postgresql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   pgadmin:
@@ -46,6 +45,6 @@ services:
     depends_on:
       - db
 
-networks:
-  sanamed_network:
-    driver: bridge
+volumes:
+    home:
+    administrador:

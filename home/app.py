@@ -86,11 +86,11 @@ def login():
             session['last_activity'] = datetime.now().isoformat()  # Agregar timestamp
             
         if rol == 'usuario':
-            return redirect("http://home:5002/user_home")  # Cambiar localhost por el nombre del contenedor en la red de Docker
+            return redirect("/user_home")  # Cambiar localhost por el nombre del contenedor en la red de Docker
         elif rol == 'profesional':
-            return redirect("http://profesional:5003/profesional_home")
+            return redirect("/profesional_home")
         elif rol == 'admin':
-            return redirect("http://administrador:5001/admin_home")
+            return redirect("/admin_home")
 
         else:
             flash("Credenciales incorrectas", "error")
