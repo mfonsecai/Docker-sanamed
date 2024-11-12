@@ -3,40 +3,45 @@ version: "3.8"
 services:
 
   home:
-      build: ./home
-      ports:
-        - "5000:5000"
-      volumes:
-        - ./home:/usr/src/app
-      env_file:
-        - ./database_postgresql/base.env
-      environment:
-        - FLASK_ENV=development
-      depends_on:
-        - db
+    build: ./home
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./home:/usr/src/app
+    env_file:
+      - ./database_postgresql/base.env
+    environment:
+      - FLASK_ENV=development
+    depends_on:
+      - db
 
   administrador:
-      build: ./administrador
-      ports:
-        - "5002:5000"
-      volumes:
-        - ./administrador:/usr/src/app
-      env_file:
-        - ./database_postgresql/base.env
-      environment:
-        - FLASK_ENV=development
-      depends_on:
-        - db
+    build: ./administrador
+    ports:
+      - "5002:5000"
+    volumes:
+      - ./administrador:/usr/src/app
+    env_file:
+      - ./database_postgresql/base.env
+    environment:
+      - FLASK_ENV=development
+    depends_on:
+      - db
 
   db:
     image: postgres:latest
+    container_name: postgres_db
     env_file:
       - ./database_postgresql/base.env
+    ports:
+      - "5432:5432"
     volumes:
+      - db_data:/var/lib/postgresql/data
       - ./database_postgresql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   pgadmin:
     image: dpage/pgadmin4
+    container_name: pgadmin_container
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -46,5 +51,4 @@ services:
       - db
 
 volumes:
-    home:
-    administrador:
+  db_data:
