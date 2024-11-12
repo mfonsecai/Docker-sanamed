@@ -1,0 +1,6 @@
+Flask
+requests
+Flask-CORS
+Flask-SQLAlchemy
+psycopg2
+

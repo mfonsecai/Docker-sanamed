@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+
+  home:
+      build: ./home
+      ports:
+        - "5001:5000"
+      volumes:
+        - ./home:/usr/src/app
+      env_file:
+        - ./database_postgresql/base.env
+      environment:
+        - FLASK_ENV=development
+      depends_on:
+        - db
+
+  admin:
+      build: ./Administrador
+      ports:
+        - "5002:5000"
+      volumes:
+        - ./Administrador:/usr/src/app
+      env_file:
+        - ./database_postgresql/base.env
+      environment:
+        - FLASK_ENV=development
+      depends_on:
+        - db
+
+  db:
+    image: postgres:latest
+    env_file:
+      - ./database_postgresql/base.env
+    volumes:
+      - inicio_data:/var/lib/postgresql/data
+      - ./database_postgresql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+networks:
+  sanamed_network:
+    driver: bridge
