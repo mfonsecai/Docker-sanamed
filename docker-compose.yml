@@ -4,11 +4,7 @@ services:
   home:
     build: ./home
     ports:
-<<<<<<< Updated upstream
-      - "5000:5000"
-=======
-      - "5001:5000"
->>>>>>> Stashed changes
+      - "5000:5000"  # Choose the appropriate port mapping
     volumes:
       - ./home:/usr/src/app
     env_file:
@@ -18,21 +14,12 @@ services:
     depends_on:
       - db
 
-<<<<<<< Updated upstream
-  administrador:
-    build: ./administrador
+  admin:
+    build: ./administrador  # Ensure correct naming for consistency
     ports:
       - "5002:5000"
     volumes:
       - ./administrador:/usr/src/app
-=======
-  admin:
-    build: ./Administrador
-    ports:
-      - "5002:5000"
-    volumes:
-      - ./Administrador:/usr/src/app
->>>>>>> Stashed changes
     env_file:
       - ./database_postgresql/base.env
     environment:
@@ -41,12 +28,8 @@ services:
       - db
 
   db:
-<<<<<<< Updated upstream
     image: postgres:latest
     container_name: postgres_db
-=======
-    image: postgres:latest  # Esta es la forma correcta de usar 'image'
->>>>>>> Stashed changes
     env_file:
       - ./database_postgresql/base.env
     ports:
@@ -66,15 +49,5 @@ services:
     depends_on:
       - db
 
-<<<<<<< Updated upstream
 volumes:
   db_data:
-=======
-networks:
-  sanamed_network:
-    driver: bridge
-
-volumes:
-  inicio_data:
-    driver: local
->>>>>>> Stashed changes
